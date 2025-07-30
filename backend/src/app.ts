@@ -1,0 +1,62 @@
+import  express,{Request,Response} from "express";
+import cors from 'cors';
+import { uptime } from "process";
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+
+//GET API endpoint
+app.get('/api/hello',(req: Request, res: Response) => {
+    res.json({
+        message: 'Hello from TypeScript Express API!',
+        timestamp: new Date().toISOString(),
+        status: 'success'
+    });
+});
+
+
+app.post('/api/data', (req: Request, res: Response) => {
+    try{
+        const {name, email, description}=req.body;
+
+        if(!name || !email || !description){
+            return res.status(400).json({error: 'All fields are required'});
+        }
+
+        const processedData={
+            id: Date.now().toString(),
+            name,
+            email,
+            description,
+            receivedAt: new Date().toISOString(),
+        };
+
+        console.log('Received data:', processedData);
+
+        res.status(201).json({
+            message: 'Data received successfully',
+            data: processedData,
+            status: 'success'
+        });
+    }catch(error){
+        res.status(500).json({
+            error: 'Internal server error',
+            status: 'error'
+        });
+        console.error(error);
+    }
+})
+
+
+// Start the server
+app.listen(PORT, async () => {
+  console.log(`🚀 Server is running on port ${PORT}`);
+  console.log(`📡 API available at http://localhost:${PORT}`);
+  console.log(`🔗 Try: http://localhost:${PORT}/api/hello`);
+});
+
+export default app;
