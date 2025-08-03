@@ -1,16 +1,17 @@
-import  express,{Request,Response} from "express";
+import express, { Request, Response } from "express";
 import cors from 'cors';
-import { uptime } from "process";
+import { connectToPostgreSQL, testDatabaseConnection, executeQuery } from './util/database'; // Adjust the import path as necessary
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+//Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({ extended: true }));
 
 //GET API endpoint
-app.get('/api/hello',(req: Request, res: Response) => {
+app.get('/api/hello', (req: Request, res: Response) => {
     res.json({
         message: 'Hello from TypeScript Express API!',
         timestamp: new Date().toISOString(),
@@ -20,14 +21,14 @@ app.get('/api/hello',(req: Request, res: Response) => {
 
 
 app.post('/api/data', (req: Request, res: Response) => {
-    try{
-        const {name, email, description}=req.body;
+    try {
+        const { name, email, description } = req.body;
 
-        if(!name || !email || !description){
-            return res.status(400).json({error: 'All fields are required'});
+        if (!name || !email || !description) {
+            return res.status(400).json({ error: 'All fields are required' });
         }
 
-        const processedData={
+        const processedData = {
             id: Date.now().toString(),
             name,
             email,
@@ -42,7 +43,7 @@ app.post('/api/data', (req: Request, res: Response) => {
             data: processedData,
             status: 'success'
         });
-    }catch(error){
+    } catch (error) {
         res.status(500).json({
             error: 'Internal server error',
             status: 'error'
@@ -54,9 +55,19 @@ app.post('/api/data', (req: Request, res: Response) => {
 
 // Start the server
 app.listen(PORT, async () => {
-  console.log(`🚀 Server is running on port ${PORT}`);
-  console.log(`📡 API available at http://localhost:${PORT}`);
-  console.log(`🔗 Try: http://localhost:${PORT}/api/hello`);
+    console.log(`🚀 Server is running on port ${PORT}`);
+    console.log(`📡 API available at http://localhost:${PORT}`);
+    console.log(`🔗 Try: http://localhost:${PORT}/api/hello`);
+
+    // Connect to PostgreSQL database
+    try {
+        await connectToPostgreSQL();
+        await testDatabaseConnection();
+
+    } catch (error) {
+        console.error('Error connecting to PostgreSQL:', error);
+    }
 });
+
 
 export default app;
