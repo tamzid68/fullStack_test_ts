@@ -38,6 +38,9 @@ app.post('/api/data', (req: Request, res: Response) => {
 
         console.log('Received data:', processedData);
 
+        // Insert data into PostgreSQL database
+        executeQuery('INSERT INTO student (name, email, description) VALUES ($1, $2, $3)', [name, email, description])
+
         res.status(201).json({
             message: 'Data received successfully',
             data: processedData,
