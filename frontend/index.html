@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,20 +16,27 @@
         body {
             font-family: 'Inter', sans-serif;
         }
+
         /* Hide spinner arrows on number inputs */
         input[type=number]::-webkit-inner-spin-button,
         input[type=number]::-webkit-outer-spin-button {
             -webkit-appearance: none;
             margin: 0;
         }
+
         input[type=number] {
-            appearance: textfield; /* Standard property for compatibility */
+            appearance: textfield;
+            /* Standard property for compatibility */
             -moz-appearance: textfield;
         }
+
         /* Simple animation for the loader */
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
+
         .loader {
             border: 4px solid rgba(0, 0, 0, .1);
             border-left-color: #4f46e5;
@@ -39,14 +47,15 @@
         }
     </style>
 </head>
+
 <body class="bg-gray-100 dark:bg-gray-900">
 
     <!-- Main container for centering the form -->
     <div class="flex items-center justify-center min-h-screen px-4 py-12">
-        
+
         <!-- Form Card -->
         <div class="w-full max-w-lg mx-auto bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 sm:p-10">
-            
+
             <!-- Form Header -->
             <div class="text-center mb-8">
                 <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Student Information</h1>
@@ -58,41 +67,47 @@
 
                 <!-- Name Field -->
                 <div>
-                    <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Full Name</label>
+                    <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Full
+                        Name</label>
                     <div class="mt-1">
                         <input id="name" name="name" type="text" required placeholder="e.g., Jane Doe"
-                               class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-300">
+                            class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-300">
                     </div>
                 </div>
 
                 <!-- Email Field -->
                 <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email Address</label>
+                    <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email
+                        Address</label>
                     <div class="mt-1">
-                        <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com"
-                               class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-300">
+                        <input id="email" name="email" type="email" autocomplete="email" required
+                            placeholder="you@example.com"
+                            class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-300">
                     </div>
                 </div>
 
                 <!-- Description Field with Gemini Button -->
                 <div>
                     <div class="flex justify-between items-center mb-2">
-                        <label for="description" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
-                        <button type="button" id="generate-description-btn" class="flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800 transition-all duration-300 ease-in-out">
+                        <label for="description"
+                            class="block text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
+                        <button type="button" id="generate-description-btn"
+                            class="flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800 transition-all duration-300 ease-in-out">
                             <span id="btn-text">Generate Description ✨</span>
                             <div id="loader" class="loader hidden ml-2"></div>
                         </button>
                     </div>
                     <div class="mt-1">
-                        <textarea id="description" name="description" rows="4" placeholder="Enter some keywords (e.g., 'passionate about coding, great team leader') and let AI write the description..."
-                                  class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-300"></textarea>
+                        <textarea id="description" name="description" rows="4"
+                            placeholder="Enter some keywords (e.g., 'passionate about coding, great team leader') and let AI write the description..."
+                            class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-300"></textarea>
                     </div>
                 </div>
 
                 <!-- Submit Button -->
                 <div>
                     <button type="submit"
-                            class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-800 transition-all duration-300 ease-in-out transform hover:scale-105">
+                        class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-800 transition-all duration-300 ease-in-out transform hover:scale-105">
                         Submit Entry
                     </button>
                 </div>
@@ -105,14 +120,19 @@
         <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white dark:bg-gray-800">
             <div class="mt-3 text-center">
                 <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
-                    <svg class="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <svg class="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
                 </div>
                 <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white mt-2">Error</h3>
                 <div class="mt-2 px-7 py-3">
                     <p id="error-message" class="text-sm text-gray-500 dark:text-gray-400"></p>
                 </div>
                 <div class="items-center px-4 py-3">
-                    <button id="close-modal-btn" class="px-4 py-2 bg-red-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300">
+                    <button id="close-modal-btn"
+                        class="px-4 py-2 bg-red-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300">
                         Close
                     </button>
                 </div>
@@ -121,31 +141,38 @@
     </div>
 
     <!-- Success Message -->
-    <div id="success-message" class="fixed inset-0 flex items-center justify-center bg-green-600 bg-opacity-20 hidden z-50">
-      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg px-8 py-6 text-center">
-        <h2 class="text-lg font-semibold text-green-700 dark:text-green-400 mb-2">Success!</h2>
-        <p class="text-gray-700 dark:text-gray-200">Student entry submitted successfully.</p>
-      </div>
+    <div id="success-message"
+        class="fixed inset-0 flex items-center justify-center bg-green-600 bg-opacity-20 hidden z-50">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg px-8 py-6 text-center">
+            <h2 class="text-lg font-semibold text-green-700 dark:text-green-400 mb-2">Success!</h2>
+            <p class="text-gray-700 dark:text-gray-200">Student entry submitted successfully.</p>
+        </div>
     </div>
 
     <!-- Improved Student List Table -->
-<div id="student-list-container" class="w-full max-w-lg mx-auto mt-12 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 border border-gray-200 dark:border-gray-700">
-  <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white text-center">Student List</h2>
-  <div class="overflow-x-auto">
-    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 rounded-lg shadow">
-      <thead>
-        <tr class="bg-blue-50 dark:bg-blue-900">
-          <th class="px-6 py-3 text-left text-base font-semibold text-blue-700 dark:text-blue-200 rounded-tl-lg">Name</th>
-          <th class="px-6 py-3 text-left text-base font-semibold text-blue-700 dark:text-blue-200">Email</th>
-          <th class="px-6 py-3 text-left text-base font-semibold text-blue-700 dark:text-blue-200 rounded-tr-lg">Description</th>
-        </tr>
-      </thead>
-      <tbody id="student-list-body">
-        <!-- Student rows will be injected here -->
-      </tbody>
-    </table>
-  </div>
-</div>
+    <div id="student-list-container"
+        class="w-full max-w-lg mx-auto mt-12 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 border border-gray-200 dark:border-gray-700">
+        <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white text-center">Student List</h2>
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 rounded-lg shadow">
+                <thead>
+                    <tr class="bg-blue-50 dark:bg-blue-900">
+                        <th
+                            class="px-6 py-3 text-left text-base font-semibold text-blue-700 dark:text-blue-200 rounded-tl-lg">
+                            Name</th>
+                        <th class="px-6 py-3 text-left text-base font-semibold text-blue-700 dark:text-blue-200">Email
+                        </th>
+                        <th
+                            class="px-6 py-3 text-left text-base font-semibold text-blue-700 dark:text-blue-200 rounded-tr-lg">
+                            Description</th>
+                    </tr>
+                </thead>
+                <tbody id="student-list-body">
+                    <!-- Student rows will be injected here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     <script>
         // --- DOM Element References ---
@@ -217,72 +244,86 @@
         }
 
         // Utility to fetch students from backend API
-async function fetchStudentsFromAPI() {
-    try {
-        const response = await fetch('http://localhost:3000/api/students/');
-        const result = await response.json();
-        return result.data || [];
-    } catch (error) {
-        showError('Failed to load student list from server.');
-        return [];
-    }
-}
+        async function fetchStudentsFromAPI() {
+            try {
+                const response = await fetch('http://localhost:3000/api/students/', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                const result = await response.json();
+                return result.data || [];
+            } catch (error) {
+                showError('Failed to load student list from server.');
+                return [];
+            }
+        }
 
-// Render the student list table from API data
-async function renderStudentList() {
-    const students = await fetchStudentsFromAPI();
-    const tbody = document.getElementById('student-list-body');
-    tbody.innerHTML = '';
-    students.forEach((student, idx) => {
-        const tr = document.createElement('tr');
-        tr.className = idx % 2 === 0
-            ? "bg-gray-50 dark:bg-gray-900 hover:bg-blue-100 dark:hover:bg-blue-950 transition"
-            : "bg-white dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-950 transition";
-        tr.innerHTML = `
+        // Render the student list table from API data
+        async function renderStudentList() {
+            const students = await fetchStudentsFromAPI();
+            const tbody = document.getElementById('student-list-body');
+            tbody.innerHTML = '';
+            students.forEach((student, idx) => {
+                const tr = document.createElement('tr');
+                tr.className = idx % 2 === 0
+                    ? "bg-gray-50 dark:bg-gray-900 hover:bg-blue-100 dark:hover:bg-blue-950 transition"
+                    : "bg-white dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-950 transition";
+                tr.innerHTML = `
             <td class="px-6 py-4 text-gray-900 dark:text-white rounded-l-lg">${student.name}</td>
             <td class="px-6 py-4 text-gray-900 dark:text-white">${student.email}</td>
             <td class="px-6 py-4 text-gray-900 dark:text-white rounded-r-lg">${student.description}</td>
         `;
-        tbody.appendChild(tr);
-    });
-}
+                tbody.appendChild(tr);
+            });
+        }
 
-// On page load, render students from backend
-renderStudentList();
-
-// Update your form submit handler:
-document.getElementById('studentForm').addEventListener('submit', function (event) {
-    event.preventDefault();
-
-    const formData = new FormData(this);
-    const data = {
-        name: formData.get('name'),
-        email: formData.get('email'),
-        description: formData.get('description')
-    };
-
-    fetch('http://localhost:3000/api/data', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(result => {
-        // After saving, reload the student list from backend
+        // On page load, render students from backend
         renderStudentList();
 
-        document.getElementById('success-message').classList.remove('hidden');
-        setTimeout(() => {
-            resetForm();
-            document.getElementById('success-message').classList.add('hidden');
-        }, 3000);
-    })
-    .catch(() => {
-        showError('Failed to submit student entry.');
-    });
-});
+        // Update your form submit handler:
+        document.getElementById('studentForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                description: formData.get('description')
+            };
+
+            fetch('http://localhost:3000/api/data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(async response => {
+                    const result = await response.json();
+                    if (response.status === 409) {
+                        // Show error modal with backend message
+                        showError(result.error || 'Email is already in use');
+                        return;
+                    }
+                    if (!response.ok) {
+                        showError(result.error || 'Failed to submit student entry.');
+                        return;
+                    }
+                    // After saving, reload the student list from backend
+                    renderStudentList();
+
+                    document.getElementById('success-message').classList.remove('hidden');
+                    setTimeout(() => {
+                        resetForm();
+                        document.getElementById('success-message').classList.add('hidden');
+                    }, 3000);
+                })
+                .catch(() => {
+                    showError('Failed to submit student entry.');
+                });
+        });
 
         function resetForm() {
             studentForm.reset();
@@ -318,4 +359,5 @@ document.getElementById('studentForm').addEventListener('submit', function (even
 
     </script>
 </body>
+
 </html>

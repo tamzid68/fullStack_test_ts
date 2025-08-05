@@ -56,7 +56,7 @@ async function executeQuery(query: string, values?: any[]): Promise<any> {
     }
 };
 
-export{
+export {
     connectToPostgreSQL,
     testDatabaseConnection,
     getPool,
