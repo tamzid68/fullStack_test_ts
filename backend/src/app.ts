@@ -19,6 +19,24 @@ app.get('/api/hello', (req: Request, res: Response) => {
     });
 });
 
+app.get('/api/students/', async (req: Request, res: Response) => {
+    try{
+        const students = await executeQuery('SELECT * FROM student');
+        res.status(200).json({
+            message: 'Students data retrieved successfully',
+            data: students,
+            status: 'success'
+        });
+
+    }catch(error) {
+        res.status(500).json({
+            error: 'fail to get data from database',
+            status: 'error'
+        });
+    }
+})
+
+
 
 app.post('/api/data', (req: Request, res: Response) => {
     try {

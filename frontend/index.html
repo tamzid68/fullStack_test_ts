@@ -128,6 +128,25 @@
       </div>
     </div>
 
+    <!-- Improved Student List Table -->
+<div id="student-list-container" class="w-full max-w-lg mx-auto mt-12 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 border border-gray-200 dark:border-gray-700">
+  <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white text-center">Student List</h2>
+  <div class="overflow-x-auto">
+    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 rounded-lg shadow">
+      <thead>
+        <tr class="bg-blue-50 dark:bg-blue-900">
+          <th class="px-6 py-3 text-left text-base font-semibold text-blue-700 dark:text-blue-200 rounded-tl-lg">Name</th>
+          <th class="px-6 py-3 text-left text-base font-semibold text-blue-700 dark:text-blue-200">Email</th>
+          <th class="px-6 py-3 text-left text-base font-semibold text-blue-700 dark:text-blue-200 rounded-tr-lg">Description</th>
+        </tr>
+      </thead>
+      <tbody id="student-list-body">
+        <!-- Student rows will be injected here -->
+      </tbody>
+    </table>
+  </div>
+</div>
+
     <script>
         // --- DOM Element References ---
         const generateBtn = document.getElementById('generate-description-btn');
@@ -197,34 +216,73 @@
             }
         }
 
-        document.getElementById('studentForm').addEventListener('submit', function (event) {
-            event.preventDefault();
+        // Utility to fetch students from backend API
+async function fetchStudentsFromAPI() {
+    try {
+        const response = await fetch('http://localhost:3000/api/students/');
+        const result = await response.json();
+        return result.data || [];
+    } catch (error) {
+        showError('Failed to load student list from server.');
+        return [];
+    }
+}
 
-            const formData = new FormData(this);
-            const data = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                description: formData.get('description')
-            };
+// Render the student list table from API data
+async function renderStudentList() {
+    const students = await fetchStudentsFromAPI();
+    const tbody = document.getElementById('student-list-body');
+    tbody.innerHTML = '';
+    students.forEach((student, idx) => {
+        const tr = document.createElement('tr');
+        tr.className = idx % 2 === 0
+            ? "bg-gray-50 dark:bg-gray-900 hover:bg-blue-100 dark:hover:bg-blue-950 transition"
+            : "bg-white dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-950 transition";
+        tr.innerHTML = `
+            <td class="px-6 py-4 text-gray-900 dark:text-white rounded-l-lg">${student.name}</td>
+            <td class="px-6 py-4 text-gray-900 dark:text-white">${student.email}</td>
+            <td class="px-6 py-4 text-gray-900 dark:text-white rounded-r-lg">${student.description}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
 
-            console.log('Form Data:', data);
+// On page load, render students from backend
+renderStudentList();
 
-            fetch('http://localhost:3000/api/data', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            }); // Send the data to the backend API
+// Update your form submit handler:
+document.getElementById('studentForm').addEventListener('submit', function (event) {
+    event.preventDefault();
 
-            document.getElementById('success-message').classList.remove('hidden');
+    const formData = new FormData(this);
+    const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        description: formData.get('description')
+    };
 
-            setTimeout(() => {
-                resetForm();
-                document.getElementById('success-message').classList.add('hidden');
-            }, 3000);
+    fetch('http://localhost:3000/api/data', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+        // After saving, reload the student list from backend
+        renderStudentList();
 
-        });
+        document.getElementById('success-message').classList.remove('hidden');
+        setTimeout(() => {
+            resetForm();
+            document.getElementById('success-message').classList.add('hidden');
+        }, 3000);
+    })
+    .catch(() => {
+        showError('Failed to submit student entry.');
+    });
+});
 
         function resetForm() {
             studentForm.reset();
